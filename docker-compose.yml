@@ -1,0 +1,12 @@
+version: "3"
+services:
+  3m:
+    image: ${SOURCE_REGISTRY:-docker.pkg.github.com}${SOURCE_GROUP:-/whateverany-3m/3m-docker/}${SOURCE_IMAGE:-3m-docker}:${SOURCE_VERSION:-0.0.1}
+    working_dir: ${WORKING_DIR:-/opt/3m}
+    volumes:
+      - .:${WORKING_DIR:-/opt/3m}
+      - ${_DOCKER_HOME:-.docker}:/root/.docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - ${ENVFILE:-.env}
+
