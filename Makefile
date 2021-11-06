@@ -5,7 +5,7 @@ TARGET_SEMANTIC_VERSION := $(TARGET_VERSION)
 TARGET_SEMANTIC_RC := $(TARGET_SEMANTIC_VERSION)-rc.$(TARGET_BUILD)
 ENVFILE := .env
 
-preaction: .env env-TARGET_RESISTRY env-TARGET_REGISTRY_TOKEN env-TARGET_REGISTRY_USER
+preaction: .env env-TARGET_REGISTRY env-TARGET_REGISTRY_TOKEN env-TARGET_REGISTRY_USER
 	echo "$(TARGET_REGISTRY_TOKEN)" | docker login --username $(TARGET_REGISTRY_USER) --password-stdin "$(TARGET_REGISTRY)"
 	$(DOCKER_COMPOSE_RUN) 3m make _login
 .PHONY: preaction
@@ -16,7 +16,7 @@ runaction: .env env-SOURCE_GROUP env-SOURCE_IMAGE env-SOURCE_REGISTRY env-SOURCE
 	$(DOCKER_COMPOSE_RUN) 3m make _publish
 .PHONY: .runaction
 
-postaction: .env env-TARGET_RESISTRY
+postaction: .env env-TARGET_REGISTRY
 	$(DOCKER_COMPOSE_RUN) 3m make _logout
 .PHONY: postaction
 
@@ -49,7 +49,7 @@ _publish:
 	docker push $(TARGET_REGISTRY)$(TARGET_GROUP)$(TARGET_IMAGE):$(TARGET_SEMANTIC_VERSION)
 .PHONY: _publish
 
-_logout: .env env-TARGET_RESISTRY
+_logout: .env env-TARGET_REGISTRY
 	echo "INFO: docker logout"
 	docker logout "$(TARGET_REGISTRY)"
 .PHONY: _logout
