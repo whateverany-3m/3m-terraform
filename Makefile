@@ -10,7 +10,7 @@ preaction: .env env-TARGET_RESISTRY env-TARGET_REGISTRY_TOKEN env-TARGET_REGISTR
 	$(DOCKER_COMPOSE_RUN) 3m make _login
 .PHONY: preaction
 
-runaction: .env env-SOURCE_GROUP env-SOURCE_IMAGE env-SOURCE_RESISTRY env-SOURCE_VERSION env-TARGET_GROUP env-TARGET_IMAGE env-TARGET_RESISTRY env-TARGET_SEMANTIC_RC env-TARGET_SEMANTIC_VERSION env-TERRAFORM_VERSION
+runaction: .env env-SOURCE_GROUP env-SOURCE_IMAGE env-SOURCE_REGISTRY env-SOURCE_VERSION env-TARGET_GROUP env-TARGET_IMAGE env-TARGET_REGISTRY env-TARGET_SEMANTIC_RC env-TARGET_SEMANTIC_VERSION env-TERRAFORM_VERSION
 	$(DOCKER_COMPOSE_RUN) 3m make _login
 	$(DOCKER_COMPOSE_RUN) 3m make _build
 	$(DOCKER_COMPOSE_RUN) 3m make _publish
@@ -66,5 +66,6 @@ shell-root: .env env-DOCKER_COMPOSE_RUN
 	echo $(ENVFILE)
 
 env-%:
-	echo "INFO: Check if $* is not empty"
+	if [ "${$*}" = "" ] ; then echo "ERROR: $* is not set"; exit 1; fi
+	echo "INFO: $*=${$*}"
 
