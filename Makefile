@@ -7,6 +7,7 @@ ENVFILE := .env
 
 preaction: .env env-TARGET_RESISTRY env-TARGET_REGISTRY_TOKEN env-TARGET_REGISTRY_USER
 	docker login --username $(TARGET_REGISTRY_USER) --password "$(TARGET_REGISTRY_TOKEN)" "$(TARGET_REGISTRY)"
+	$(DOCKER_COMPOSE_RUN) 3m make _login
 .PHONY: preaction
 
 runaction: .env env-SOURCE_GROUP env-SOURCE_IMAGE env-SOURCE_RESISTRY env-SOURCE_VERSION env-TARGET_GROUP env-TARGET_IMAGE env-TARGET_RESISTRY env-TARGET_SEMANTIC_RC env-TARGET_SEMANTIC_VERSION env-TERRAFORM_VERSION
@@ -17,6 +18,11 @@ runaction: .env env-SOURCE_GROUP env-SOURCE_IMAGE env-SOURCE_RESISTRY env-SOURCE
 postaction: .env env-TARGET_RESISTRY
 	$(DOCKER_COMPOSE_RUN) 3m make _logout
 .PHONY: postaction
+
+_login:
+  echo "INFO: docker login"
+  docker login --username $(TARGET_REGISTRY_USER) --password "$(TARGET_REGISTRY_TOKEN)" "$(TARGET_REGISTRY)"
+.PHONY: _login
 
 _build:
 	echo "INFO: docker build"
