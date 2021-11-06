@@ -20,8 +20,8 @@ postaction: .env env-TARGET_RESISTRY
 .PHONY: postaction
 
 _login:
-  echo "INFO: docker login"
-  docker login --username $(TARGET_REGISTRY_USER) --password "$(TARGET_REGISTRY_TOKEN)" "$(TARGET_REGISTRY)"
+	echo "INFO: docker login"
+	docker login --username $(TARGET_REGISTRY_USER) --password "$(TARGET_REGISTRY_TOKEN)" "$(TARGET_REGISTRY)"
 .PHONY: _login
 
 _build:
