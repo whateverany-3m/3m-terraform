@@ -1,3 +1,19 @@
-.docker
+ .tfstate files
+ Crash log files
+ Ignore CLI configuration files
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*_override.tf
+*_override.tf.json
 .env
-super-linter*
+.terraformrc
+crash.log
+nexus-data/
+override.tf
+override.tf.json
+super-linter.log
+super-linter.report/
+temp/*
+terraform.rc

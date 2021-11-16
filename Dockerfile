@@ -7,8 +7,6 @@ FROM $SOURCE_REGISTRY$SOURCE_GROUP$SOURCE_IMAGE:$SOURCE_VERSION
 
 ARG TERRAFORM_VERSION
 
-#USER root
-
 COPY src/rootfs/ /
 
 RUN set -x ;\
@@ -17,6 +15,5 @@ RUN set -x ;\
   unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" ;\
   rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" ;\
   mv terraform /usr/bin/terraform ;\
-  echo "INFO: end RUN" ;\
+  echo "INFO: end RUN"
 
-#USER rootless

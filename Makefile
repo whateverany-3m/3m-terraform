@@ -1,5 +1,5 @@
 DOCKER_COMPOSE_RUN ?= docker-compose run --rm
-DOCKER_COMPOSE_SHELLS ?= 3m-root-/bin/sh lint-root-/bin/bash target-root-/bin/sh
+DOCKER_COMPOSE_SHELLS ?= 3m-root-/bin/sh lint-root-/bin/bash source-root-/bin/sh target-root-/bin/sh
 ENVFILE ?= .env
 TARGET_SEMANTIC_VERSION ?= $(TARGET_VERSION)
 TARGET_SEMANTIC_RC ?= $(TARGET_SEMANTIC_VERSION)-rc.$(TARGET_BUILD)
@@ -7,7 +7,7 @@ TARGET_ENVS ?= TARGET_ENVS=SOURCE_GROUP SOURCE_IMAGE SOURCE_REGISTRY SOURCE_VERS
 #
 DOCKER_COMPOSE_ARGS ?= $(foreach _t,${TARGET_ENVS},-e "$(_t)=$${$(_t)}")
 TARGET_ARGS ?= $(foreach _t,${TARGET_ENVS},--build-arg "$(_t)=$${$(_t)}")
-TARGET_DEPS ?= .env $(foreach _t,${TARGET_ENVS},env-$(_t) )
+TARGET_DEPS ?= .env $(foreach _t,${TARGET_ENVS},_env-$(_t) )
 
 preaction: $(TARGET_DEPS)
 	echo "$(TARGET_REGISTRY_TOKEN)" | docker login --username $(TARGET_REGISTRY_USER) --password-stdin "$(TARGET_REGISTRY)"
@@ -76,7 +76,7 @@ shell_$(1): $(TARGET_DEPS)
 endef
 $(foreach _t,$(DOCKER_COMPOSE_SERVICES),$(eval $(call RULE,$(_t))))
 
-env-%:
+_env-%:
 	if [ "${${*}}" = "" ]; then \
 			echo "Environment variable $* not set"; \
 			echo "Please check README.md for variables required"; \
