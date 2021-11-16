@@ -13,7 +13,7 @@ COPY src/rootfs/ /
 
 RUN set -x ;\
   echo "INFO: begin RUN" ;\
-  wget "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" ;\
+  wget -nv "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" ;\
   unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" ;\
   rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" ;\
   mv terraform /usr/bin/terraform ;\
