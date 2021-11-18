@@ -1,0 +1,3 @@
+[submodule "3m-common"]
+	path = 3m-common
+	url = git@github.com:whateverany-3m/3m-common.git
