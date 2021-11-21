@@ -16,8 +16,8 @@ RUN set -x ;\
   unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" ;\
   rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" ;\
   mv terraform /usr/local/bin/terraform ;\
-  wget -nv "https://github.com/aquasecurity/tfsec/releases/download/${TFSEC_VERSION}/tfsec-linux-amd64"
-  mv tfsec-linux-amd64 /usr/local/bin/tfsec
-  chmod +x /usr/local/bin/tfsec
+  wget -nv "https://github.com/aquasecurity/tfsec/releases/download/${TFSEC_VERSION}/tfsec-linux-amd64" ;\
+  mv tfsec-linux-amd64 /usr/local/bin/tfsec ;\
+  chmod +x /usr/local/bin/tfsec ;\
   echo "INFO: end RUN"
 
